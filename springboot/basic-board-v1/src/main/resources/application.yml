@@ -1,3 +1,5 @@
 spring:
   application:
     name: basic-board-v1
+server:
+  port: 8081
