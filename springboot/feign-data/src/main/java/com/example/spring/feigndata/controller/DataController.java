@@ -1,15 +1,15 @@
 package com.example.spring.feigndata.controller;
 
+import com.example.spring.feigndata.dto.DataRequestDTO;
 import com.example.spring.feigndata.dto.DataResponseDTO;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/data")
 public class DataController {
@@ -29,7 +29,37 @@ public class DataController {
 
     @GetMapping("/{id}")
     public DataResponseDTO get(@PathVariable Long id) {
+        log.info("[Feign Data] select");
         return dataStore.get(id);
+    }
+
+    @PostMapping
+    public DataResponseDTO createData(@RequestBody DataRequestDTO dataRequestDTO) {
+        log.info("[Feign Data] create");
+        DataResponseDTO newData = DataResponseDTO.builder()
+                .id(idCnt)
+                .name(dataRequestDTO.getName())
+                .value(dataRequestDTO.getValue())
+                .build();
+
+        dataStore.put(idCnt++, newData);
+
+        return newData;
+    }
+
+    @PutMapping("/{id}")
+    public DataResponseDTO updateData(
+            @PathVariable Long id,
+            @RequestBody DataRequestDTO dataRequestDTO
+    ) {
+        log.info("[Feign Data] update");
+        DataResponseDTO dataResponseDTO = dataStore.get(id);
+
+        dataResponseDTO.setName(dataRequestDTO.getName());
+        dataResponseDTO.setValue(dataRequestDTO.getValue());
+        dataStore.put(id, dataResponseDTO);
+
+        return dataResponseDTO;
     }
 
 }
