@@ -6,7 +6,9 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -60,6 +62,30 @@ public class DataController {
         dataStore.put(id, dataResponseDTO);
 
         return dataResponseDTO;
+    }
+
+    @GetMapping("/all")
+    public List<DataResponseDTO> getAll() {
+        log.info("[Feign Data] getAll");
+        List<DataResponseDTO> results = new ArrayList<>();
+
+        for(Long id : dataStore.keySet()) {
+            DataResponseDTO dataResponseDTO = dataStore.get(id);
+            results.add(dataResponseDTO);
+        }
+
+        return results;
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        log.info("[Feign Data] delete");
+        DataResponseDTO removed = dataStore.remove(id);
+        if (removed != null) {
+
+        }
+
+        return "Data with ID " + removed.getId() + " was deleted";
     }
 
 }
