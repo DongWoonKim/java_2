@@ -12,4 +12,10 @@ public class FilterController {
         return "hello";
     }
 
+    @GetMapping("/api/hello")
+    public String apiHello() {
+        System.out.println("[apiHello]");
+        return "api hello";
+    }
+
 }
