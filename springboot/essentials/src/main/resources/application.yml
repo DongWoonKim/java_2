@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: essentials
+server:
+  port: 8082
