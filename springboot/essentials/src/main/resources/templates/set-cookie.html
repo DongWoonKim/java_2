@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>쿠키 설정</title>
+</head>
+<body>
+<h1>쿠키 설정</h1>
+
+<form action="/set-cookie" method="post">
+  <label for="username">사용자 이름:</label>
+  <input type="text" id="username" name="username" required />
+  <button type="submit">쿠키 저장</button>
+</form>
+
+<a href="/get-cookie">쿠키 읽기</a><br/>
+<a href="/delete-cookie">쿠키 삭제</a>
+
+</body>
+</html>
