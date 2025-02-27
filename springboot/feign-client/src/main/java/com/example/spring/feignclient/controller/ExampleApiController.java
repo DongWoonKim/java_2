@@ -1,9 +1,11 @@
 package com.example.spring.feignclient.controller;
 
-import com.example.spring.feignclient.client.ExampleClient;
+import com.example.spring.feignclient.dto.DataResponseDTO;
 import com.example.spring.feignclient.service.ExampleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,4 +24,20 @@ public class ExampleApiController {
     public String createData(@RequestParam String name, @RequestParam int value) {
         return exampleService.createData(name, value);
     }
+
+    @PutMapping("/{id}")
+    public String updateData(@PathVariable Long id, @RequestParam String name, @RequestParam int value) {
+        return exampleService.updateDataById(id, name, value);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteData(@PathVariable Long id) {
+        return exampleService.deleteDataById(id);
+    }
+
+    @GetMapping("/all")
+    public List<DataResponseDTO> getAllData() {
+        return exampleService.getAllData();
+    }
+
 }
