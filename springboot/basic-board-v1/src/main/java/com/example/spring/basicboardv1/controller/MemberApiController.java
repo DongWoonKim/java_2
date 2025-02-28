@@ -17,6 +17,7 @@ public class MemberApiController {
     @PostMapping("/join")
     public SignUpResponseDTO join(@RequestBody SignUpRequestDTO signUpRequestDTO) {
         System.out.println("SignUpRequestDTO :: " + signUpRequestDTO);
+        memberService.signUp(signUpRequestDTO.toMember());
         return SignUpResponseDTO.builder()
                 .build();
     }
