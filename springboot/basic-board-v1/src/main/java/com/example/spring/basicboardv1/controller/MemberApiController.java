@@ -1,8 +1,5 @@
 package com.example.spring.basicboardv1.controller;
 
-import com.example.spring.basicboardv1.config.WebSecurityConfig;
-import com.example.spring.basicboardv1.dto.SignInRequestDTO;
-import com.example.spring.basicboardv1.dto.SignInResponseDTO;
 import com.example.spring.basicboardv1.dto.SignUpRequestDTO;
 import com.example.spring.basicboardv1.dto.SignUpResponseDTO;
 import com.example.spring.basicboardv1.service.MemberService;

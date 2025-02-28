@@ -12,4 +12,11 @@
         INSERT INTO member(user_id, password, user_name)
         VALUES (#{userId}, #{password}, #{userName});
     </insert>
+
+    <select id="selectMemberByUserId"
+        parameterType="String"
+        resultMap="memberResultMap"
+    >
+        SELECT * FROM member WHERE user_id = #{userId};
+    </select>
 </mapper>

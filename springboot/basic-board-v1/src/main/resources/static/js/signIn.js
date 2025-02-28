@@ -5,7 +5,7 @@ $(document).ready(() => {
        let password = $('#password').val();
 
        let formData = {
-           userId : userId,
+           username : userId,
            password : password
        }
 
