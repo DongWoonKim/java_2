@@ -1,6 +1,8 @@
 package com.example.spring.basicboardv1.controller;
 
 import com.example.spring.basicboardv1.config.WebSecurityConfig;
+import com.example.spring.basicboardv1.dto.SignInRequestDTO;
+import com.example.spring.basicboardv1.dto.SignInResponseDTO;
 import com.example.spring.basicboardv1.dto.SignUpRequestDTO;
 import com.example.spring.basicboardv1.dto.SignUpResponseDTO;
 import com.example.spring.basicboardv1.service.MemberService;
@@ -24,6 +26,13 @@ public class MemberApiController {
         return SignUpResponseDTO.builder()
                 .build();
     }
+
+//    @PostMapping("/login")
+//    public SignInResponseDTO join(@RequestBody SignInRequestDTO signInRequestDTO) {
+//        System.out.println("signInRequestDTO :: " + signInRequestDTO);
+//        return SignInResponseDTO.builder()
+//                .build();
+//    }
 
 
 }

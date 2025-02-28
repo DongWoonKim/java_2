@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -22,12 +23,22 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(
                                         new AntPathRequestMatcher("/join", "POST"),
-                                        new AntPathRequestMatcher("/member/join", "GET")
+                                        new AntPathRequestMatcher("/member/join", "GET"),
+                                        new AntPathRequestMatcher("/member/login", "GET")
                                 ).permitAll()
+                                .anyRequest().authenticated()
+                );
+
+        http
+                .formLogin(
+                        formLogin -> formLogin
+                                .loginPage("/member/login")
+                                .loginProcessingUrl("/login")
                 );
 
         return http.build();
