@@ -4,7 +4,6 @@ import com.example.spring.basicboardv1.config.security.CustomUserDetails;
 import com.example.spring.basicboardv1.mapper.MemberMapper;
 import com.example.spring.basicboardv1.model.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,7 @@
 package com.example.spring.basicboardv1.config;
 
+import com.example.spring.basicboardv1.config.security.CustomAuthenticationFailureHandler;
+import com.example.spring.basicboardv1.config.security.CustomAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +23,11 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(
+            HttpSecurity http,
+            CustomAuthenticationSuccessHandler successHandler,
+            CustomAuthenticationFailureHandler failureHandler
+    ) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
@@ -39,6 +45,8 @@ public class WebSecurityConfig {
                         formLogin -> formLogin
                                 .loginPage("/member/login")
                                 .loginProcessingUrl("/login")
+                                .successHandler(successHandler)
+                                .failureHandler(failureHandler)
                 );
 
         return http.build();

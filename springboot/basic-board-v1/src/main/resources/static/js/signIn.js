@@ -20,7 +20,7 @@ $(document).ready(() => {
             },
             error: (error) => {
                 console.log('오류발생 : ', error);
-                alert('회원가입 중 오류가 발생하였습니다.');
+                alert('로그인 오류!');
             }
         });
 
