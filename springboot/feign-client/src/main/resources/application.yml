@@ -5,3 +5,9 @@ server:
   port: 9981
 feign-data:
   url: "http://localhost:9983"
+weather:
+  url: "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcs"
+  key: "1234"
+
+sample:
+  data: 1234
