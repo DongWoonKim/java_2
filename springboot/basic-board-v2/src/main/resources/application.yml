@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: basic-board-v2
+  datasource:
+    url: jdbc:mysql://localhost:3306/java_basic?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+server:
+  port: 8081
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.example.spring.basicboardv2.model
