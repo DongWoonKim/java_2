@@ -15,4 +15,16 @@
         INSERT INTO member (user_id, password, user_name, role)
         VALUES (#{userId}, #{password}, #{userName}, #{role});
     </insert>
+
+    <select id="findByUserId"
+            parameterType="String"
+            resultMap="memberResultMap"
+    >
+            SELECT
+                id, user_id, password, user_name, role
+            FROM
+                member
+            WHERE
+                user_id = #{userId};
+    </select>
 </mapper>
