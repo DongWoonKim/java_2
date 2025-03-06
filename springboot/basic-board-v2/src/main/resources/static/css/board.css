@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#board {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+/* 로그아웃 버튼 스타일 */
+.logout-btn {
+    background-color: #dc3545; /* 붉은색 */
+}
+
+/* 로그아웃 버튼을 우측 상단으로 이동 */
+.logout-btn-position {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+}
+
+/* 버튼 호버 효과 */
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.logout-btn:hover {
+    background-color: #c82333; /* 호버 시 더 진한 붉은색 */
+}
+
+.btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.btn:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+#pageInfo {
+    font-size: 1.2em;
+    margin: 0 10px;
+}

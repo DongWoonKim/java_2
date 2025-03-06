@@ -18,6 +18,8 @@ $(document).ready(() => {
             success: (response) => {
                 alert('로그인이 성공했습니다.');
                 console.log(response);
+                localStorage.setItem('accessToken', response.token);
+                window.location.href = '/'
             },
             error: (error) => {
                 console.log('오류발생 : ', error);
