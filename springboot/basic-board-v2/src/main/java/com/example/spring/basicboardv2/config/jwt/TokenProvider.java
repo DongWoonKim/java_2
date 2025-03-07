@@ -2,10 +2,7 @@ package com.example.spring.basicboardv2.config.jwt;
 
 import com.example.spring.basicboardv2.model.Member;
 import com.example.spring.basicboardv2.type.Role;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -94,6 +91,7 @@ public class TokenProvider {
                 .claim("id", member.getId())
                 .claim("role", member.getRole().name())
                 .claim("userName", member.getUserName())
+                .signWith(getSecretKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
