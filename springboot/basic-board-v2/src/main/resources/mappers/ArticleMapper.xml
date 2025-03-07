@@ -4,12 +4,12 @@
 <mapper namespace="com.example.spring.basicboardv2.mapper.BoardMapper">
     <resultMap id="articleResultMap" type="Article">
         <result property="id" column="id"/>
-        <result property="userId" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
+        <result property="userId" column="user_id"/>
+        <result property="filePath" column="file_path"/>
         <result property="created" column="created"/>
         <result property="updated" column="updated"/>
-        <result property="filePath" column="file_path"/>
     </resultMap>
 
     <insert id="saveArticle" parameterType="Article">
@@ -18,5 +18,21 @@
         VALUES
             (#{userId}, #{title}, #{content}, #{filePath});
     </insert>
+
+    <select id="getArticles"
+            parameterType="Paging"
+            resultMap="articleResultMap"
+    >
+        SELECT
+          id, title, content, user_id, file_path, created, updated
+        FROM
+            article
+        ORDER BY id DESC
+            LIMIT #{offset}, #{size};
+    </select>
+
+    <select id="getArticleCnt" resultType="Integer">
+        SELECT COUNT(*) FROM article;
+    </select>
 
 </mapper>
