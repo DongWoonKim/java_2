@@ -16,4 +16,4 @@ mybatis:
 
 jwt:
   issuer: test@gmail.com
-  secret_key: pyjWTd80kOTqOrK2lhYnztUIlS3v7VxD4z1iki2XCuX7wYcXpi8XMKU15BDIit9AdZUPYDRQm7Z4r5fLPNZ7Sg==
+  secret_key: O4SxPzNI26ON9JzP9Yx1ffnBKucULNdrUrL0t114BdgRmvKGFGT9RnLp8BP1MG+RosB46Tb6V7WjeSKM/1EN2Q==
