@@ -1,5 +1,6 @@
 package com.example.spring.basicboardv2.controller;
 
+import com.example.spring.basicboardv2.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/board")
 public class BoardApiController {
 
+    private final BoardService boardService;
+
     @PostMapping
     public void saveArticle(
             @RequestParam("title") String title,
@@ -19,10 +22,7 @@ public class BoardApiController {
             @RequestParam("hiddenUserId") String userId,
             @RequestParam("file") MultipartFile file
     ) {
-        System.out.println(title);
-        System.out.println(content);
-        System.out.println(userId);
-        System.out.println(file.getOriginalFilename());
+        boardService.saveArticle(userId, title, content,  file);
     }
 
 }

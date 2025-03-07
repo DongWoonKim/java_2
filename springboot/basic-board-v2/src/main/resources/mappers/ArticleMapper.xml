@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.spring.basicboardv2.mapper.BoardMapper">
-    <resultMap id="articleResultMap" type="Member">
+    <resultMap id="articleResultMap" type="Article">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="title" column="title"/>
@@ -11,4 +11,12 @@
         <result property="updated" column="updated"/>
         <result property="filePath" column="file_path"/>
     </resultMap>
+
+    <insert id="saveArticle" parameterType="Article">
+        INSERT INTO
+            article(user_id, title, content, file_path)
+        VALUES
+            (#{userId}, #{title}, #{content}, #{filePath});
+    </insert>
+
 </mapper>
