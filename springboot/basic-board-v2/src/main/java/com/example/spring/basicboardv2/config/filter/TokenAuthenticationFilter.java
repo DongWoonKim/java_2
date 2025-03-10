@@ -2,6 +2,7 @@ package com.example.spring.basicboardv2.config.filter;
 
 import com.example.spring.basicboardv2.config.jwt.TokenProvider;
 import com.example.spring.basicboardv2.model.Member;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String token = resolveToken(request);
+        System.out.println(token);
         if (token != null && tokenProvider.validToken(token) == 1) {
             // 토큰이 유효할 경우, 인증 정보를 설정
             Authentication authentication = tokenProvider.getAuthentication(token);

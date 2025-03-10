@@ -1,5 +1,6 @@
 package com.example.spring.basicboardv2.util;
 
+import com.example.spring.basicboardv2.model.Member;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,4 +32,17 @@ public class CookieUtil {
             }
         }
     }
+
+    public static String getCookieValue(HttpServletRequest request, String name) {
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if (name.equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+
+        return null;
+    }
+
 }

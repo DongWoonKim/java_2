@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <script th:src="@{/js/boardDetail.js}"></script>
+    <link th:href="@{/css/boardDetail.css}" rel="stylesheet">
+    <title>게시글 상세보기</title>
+</head>
+<body>
+<div class="container">
+    <input id="hiddenId" type="hidden" th:value="${id}">
+    <input id="hiddenUserId" type="hidden">
+    <input id="hiddenUserName" type="hidden">
+    <input id="hiddenFilePath" type="hidden">
+
+    <div class="article-header">
+        <h1 id="title">게시글 제목</h1>
+        <div class="article-info">
+            <span>작성자: <strong id="userId"></strong></span> |
+            <span>작성일: <strong id="created"></strong></span>
+        </div>
+    </div>
+
+    <div class="article-content">
+        <p id="content">게시글 내용</p>
+    </div>
+
+    <!-- 파일 미리보기 및 다운로드 영역 -->
+    <div class="file-section">
+        <h3>첨부 파일</h3>
+        <ul id="fileList">
+            <!-- 서버에서 파일 목록을 동적으로 추가 -->
+        </ul>
+    </div>
+
+    <div class="article-footer">
+        <button class="btn" th:onclick="|location.href='@{/}'|">목록으로 돌아가기</button>
+        <button id="editBtn" onclick="editArticle()" class="btn edit-btn">수정</button>
+        <button id="deleteBtn" onclick="deleteArticle()" class="btn delete-btn">삭제</button>
+    </div>
+</div>
+</body>
+</html>
