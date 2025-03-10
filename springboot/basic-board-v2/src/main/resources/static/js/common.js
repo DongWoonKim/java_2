@@ -8,7 +8,6 @@ let handleTokenExpiration = () => {
             withCredentials: true // 쿠키를 포함해서 요청을 보냄
         },
         success: (response) => {
-            console.log(response);
             localStorage.setItem('accessToken', response.token);
         },
         error: () => {
@@ -30,7 +29,6 @@ let setupAjax = () => {
     $.ajaxSetup({
         beforeSend: (xhr) => {
             let token = localStorage.getItem('accessToken');
-            token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc0MTU2NzkxNSwiZXhwIjoxNzQxNTY3OTE2LCJzdWIiOiJ0ZXN0IiwiaWQiOjAsInJvbGUiOiJST0xFX1VTRVIiLCJ1c2VyTmFtZSI6InRlc3QifQ.Ix63HA1Tgs11Bh2bs1NfxmaXEvJutm1NBtdWYayU3YXkKe-702jtAePrzadJuKGt3XLooBsQJJqaHyMdDmMlaQ';
             if (token) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token)
             }

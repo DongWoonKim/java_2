@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
@@ -26,8 +28,14 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        String requestURI = request.getRequestURI();
+        log.info("Request URI: {}", requestURI);
+        if ( "/refresh-token".equals(requestURI) ) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String token = resolveToken(request);
-        System.out.println(token);
         if (token != null && tokenProvider.validToken(token) == 1) {
             // 토큰이 유효할 경우, 인증 정보를 설정
             Authentication authentication = tokenProvider.getAuthentication(token);
