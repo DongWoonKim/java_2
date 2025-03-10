@@ -1,8 +1,10 @@
 package com.example.spring.basicboardv2.controller;
 
+import com.example.spring.basicboardv2.dto.BoardDetailResponseDTO;
 import com.example.spring.basicboardv2.dto.BoardListResponseDTO;
 import com.example.spring.basicboardv2.model.Article;
 import com.example.spring.basicboardv2.service.BoardService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +35,13 @@ public class BoardApiController {
                 .articles(articles)
                 .last(last)
                 .build();
+    }
+
+    @GetMapping("/{id}")
+    public BoardDetailResponseDTO getBoardDetail(@PathVariable long id) {
+        return boardService
+                .getBoardDetail(id)
+                .toBoardDetailResponseDTO();
     }
 
     @PostMapping
