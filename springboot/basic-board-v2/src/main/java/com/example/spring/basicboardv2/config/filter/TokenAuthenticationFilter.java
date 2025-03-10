@@ -27,7 +27,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         String requestURI = request.getRequestURI();
         log.info("Request URI: {}", requestURI);
         if ( "/refresh-token".equals(requestURI) ) {
