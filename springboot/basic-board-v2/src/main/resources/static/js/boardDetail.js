@@ -54,3 +54,22 @@ let editArticle = () => {
     let hId = $('#hiddenId').val();
     window.location.href = '/update/' + hId;
 }
+
+let deleteArticle = () => {
+    let hId = $('#hiddenId').val();
+    let filePath = $('#hiddenFilePath').val();
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/board/' + hId,
+        data: JSON.stringify({filePath : filePath}),
+        contentType: 'application/json; charset=utf-8',
+        success: () => {
+            alert('정상적으로 삭제되었습니다.');
+            window.location.href = '/';
+        },
+        error: (error) => {
+            console.error('board detail delete error :: ', error);
+        }
+    });
+}

@@ -55,5 +55,8 @@
         WHERE
             id = #{id};
     </update>
-
+    <delete id="deleteBoardById" parameterType="Long">
+        DELETE FROM article
+        WHERE id = #{id};
+    </delete>
 </mapper>

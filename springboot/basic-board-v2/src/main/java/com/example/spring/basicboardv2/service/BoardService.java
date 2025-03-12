@@ -1,5 +1,6 @@
 package com.example.spring.basicboardv2.service;
 
+import com.example.spring.basicboardv2.dto.BoardDeleteRequestDTO;
 import com.example.spring.basicboardv2.mapper.BoardMapper;
 import com.example.spring.basicboardv2.model.Article;
 import com.example.spring.basicboardv2.model.Paging;
@@ -79,5 +80,10 @@ public class BoardService {
                         .build()
         );
 
+    }
+
+    public void deleteBoardById(long id, BoardDeleteRequestDTO requestDTO) {
+        fileService.deleteFile(requestDTO.getFilePath());
+        boardMapper.deleteBoardById(id);
     }
 }

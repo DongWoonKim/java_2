@@ -1,5 +1,6 @@
 package com.example.spring.basicboardv2.controller;
 
+import com.example.spring.basicboardv2.dto.BoardDeleteRequestDTO;
 import com.example.spring.basicboardv2.dto.BoardDetailResponseDTO;
 import com.example.spring.basicboardv2.dto.BoardListResponseDTO;
 import com.example.spring.basicboardv2.model.Article;
@@ -85,6 +86,11 @@ public class BoardApiController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename*=UTF-8''" + encoded)
                 .body(resource);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteArticle(@PathVariable long id, @RequestBody BoardDeleteRequestDTO requestDTO) {
+        boardService.deleteBoardById(id, requestDTO);
     }
 
 }
