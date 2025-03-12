@@ -56,4 +56,28 @@ public class BoardService {
     public Resource downloadFile(String fileName) {
         return fileService.downloadFile(fileName);
     }
+
+    public void updateArticle(Long id, String title, String content, MultipartFile file, Boolean fileChanged, String filePath) {
+        String path = null;
+
+        if (!file.isEmpty()) {
+            path = fileService.fileUpLoad(file);
+        }
+
+        if (fileChanged) {
+            fileService.deleteFile(filePath);
+        } else {
+            path = filePath;
+        }
+
+        boardMapper.updateArticle(
+                Article.builder()
+                        .id(id)
+                        .title(title)
+                        .content(content)
+                        .filePath(path)
+                        .build()
+        );
+
+    }
 }

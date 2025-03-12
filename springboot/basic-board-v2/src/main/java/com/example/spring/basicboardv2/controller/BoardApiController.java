@@ -71,7 +71,7 @@ public class BoardApiController {
             @RequestParam("hiddenFileFlag") Boolean fileChanged,
             @RequestParam("hiddenFilePath") String filePath
     ) {
-        System.out.println(title + " : " + content + " : " + userId + " : " + file + " : " + fileChanged + " : " + filePath + " : " + id);
+        boardService.updateArticle(id, title, content, file, fileChanged, filePath);
     }
 
     @GetMapping("/file/download/{fileName}")

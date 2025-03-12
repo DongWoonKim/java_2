@@ -35,7 +35,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = resolveToken(request);
-        System.out.println("token :: " + token);
         if (token != null && tokenProvider.validToken(token) == 1) {
             // 토큰이 유효할 경우, 인증 정보를 설정
             Authentication authentication = tokenProvider.getAuthentication(token);

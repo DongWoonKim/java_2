@@ -47,4 +47,13 @@
             id = #{id};
     </select>
 
+    <update id="updateArticle" parameterType="Article">
+        UPDATE
+                article
+        SET
+            title = #{title}, content = #{content}, file_path = #{filePath}
+        WHERE
+            id = #{id};
+    </update>
+
 </mapper>
