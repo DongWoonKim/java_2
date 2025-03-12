@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/boardUpdate.js}"></script>
+  <link th:href="@{/css/boardUpdate.css}" rel="stylesheet">
+  <title>글수정</title>
+</head>
+<body>
+<div class="container">
+  <h1>글수정</h1>
+
+  <form id="writeForm" enctype="multipart/form-data">
+    <input id="hiddenId" name="hiddenId" type="hidden" th:value="${id}">
+    <input id="hiddenUserId" name="hiddenUserId" type="hidden" th:value="${userId}">
+    <input id="hiddenUserName" name="hiddenUserName" type="hidden" th:value="${userName}">
+    <input id="hiddenFilePath" name="hiddenFilePath" type="hidden">
+    <input id="hiddenFileFlag" name="hiddenFileFlag" type="hidden" >
+
+    <div class="form-group">
+      <label for="title">제목</label>
+      <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+    </div>
+
+    <div class="form-group">
+      <label for="userId">작성자</label>
+      <input type="text" id="userId" name="userId" th:value="${userName}" required disabled>
+    </div>
+
+    <div class="form-group">
+      <label for="content">내용</label>
+      <textarea id="content" name="content" placeholder="내용을 입력하세요" rows="10" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="file">파일 업로드</label>
+      <input type="file" id="file" name="file">
+    </div>
+
+    <!-- 업로드된 파일을 보여주고, 취소할 수 있는 영역 -->
+    <div class="uploaded-files">
+      <ul id="fileList"></ul> <!-- 파일 목록을 보여줄 부분 -->
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn" id="submitBtn">수정하기</button>
+      <button type="button" class="btn cancel-btn" th:onclick="|location.href='@{/}'|">목록으로 가기</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

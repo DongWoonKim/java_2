@@ -49,3 +49,8 @@ let loadBoardDetail = () => {
         }
     });
 }
+
+let editArticle = () => {
+    let hId = $('#hiddenId').val();
+    window.location.href = '/update/' + hId;
+}

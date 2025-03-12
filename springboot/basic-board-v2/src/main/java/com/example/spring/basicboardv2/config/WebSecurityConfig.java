@@ -55,6 +55,7 @@ public class WebSecurityConfig {
                                         new AntPathRequestMatcher("/member/login", GET.name()),
                                         new AntPathRequestMatcher("/write", GET.name()),
                                         new AntPathRequestMatcher("/detail", GET.name()),
+                                        new AntPathRequestMatcher("/update/*", GET.name()),
                                         new AntPathRequestMatcher("/access-denied", GET.name()),
                                         // 기능
                                         new AntPathRequestMatcher("/refresh-token", POST.name()),

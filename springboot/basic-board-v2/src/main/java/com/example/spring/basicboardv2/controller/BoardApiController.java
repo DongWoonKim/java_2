@@ -61,6 +61,19 @@ public class BoardApiController {
         boardService.saveArticle(userId, title, content,  file);
     }
 
+    @PutMapping
+    public void updateArticle(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("hiddenUserId") String userId,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("hiddenId") Long id,
+            @RequestParam("hiddenFileFlag") Boolean fileChanged,
+            @RequestParam("hiddenFilePath") String filePath
+    ) {
+        System.out.println(title + " : " + content + " : " + userId + " : " + file + " : " + fileChanged + " : " + filePath + " : " + id);
+    }
+
     @GetMapping("/file/download/{fileName}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
         Resource resource = boardService.downloadFile(fileName);
