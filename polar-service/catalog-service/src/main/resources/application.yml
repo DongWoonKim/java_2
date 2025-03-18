@@ -1,5 +1,10 @@
+server:
+  port: 9001
 spring:
   application:
     name: catalog-service
-server:
-  port: 9001
+  datasource:
+    url: jdbc:mysql://polar-mysql:3306/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
