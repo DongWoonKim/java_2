@@ -4,7 +4,7 @@ spring:
   application:
     name: catalog-service
   datasource:
-    url: jdbc:mysql://polar-mysql:3306/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3307/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
