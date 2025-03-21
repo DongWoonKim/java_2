@@ -1,4 +1,15 @@
 services:
+  edge-service:
+    build:
+      context: C:\Users\cheoho-hi\Desktop\java_2\polar-service\edge-service
+      dockerfile: Dockerfile 
+    image: "edge-service"
+    container_name: "edge-service"
+    ports:
+      - 9000:9000
+    environment:
+      - CATALOG_SERVICE_URL=http://catalog-service:9001
+      - ORDER_SERVICE_URL=http://order-service:9002
   catalog-service:
     build:
       context: C:\Users\cheoho-hi\Desktop\java_2\polar-service\catalog-service
@@ -11,7 +22,18 @@ services:
       - 9001:9001
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://polar-mysql:3306/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
-
+  order-service:
+    build:
+      context: C:\Users\cheoho-hi\Desktop\java_2\polar-service\order-service
+      dockerfile: Dockerfile
+    depends_on:
+      - polar-mysql
+    image: "order-service"
+    container_name: "order-service"
+    ports:
+      - 9002:9002
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/order
   polar-mysql:
     image: "mysql:latest"
     container_name: "polar-mysql"
