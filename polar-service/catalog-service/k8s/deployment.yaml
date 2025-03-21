@@ -1,26 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $title$
+  name: catalog-service
   labels:
-    app: $title$
+    app: catalog-service
 spec:
-  replicas: $1$
+  replicas: 1
   selector:
     matchLabels:
-      app: $title$
+      app: catalog-service
   template:
     metadata:
-      name: $title$
+      name: catalog-service
       labels:
-        app: $title$
+        app: catalog-service
     spec:
       containers:
-        - name: $title$
-          image: $nginx$
+        - name: catalog-service
+          image: catalog-service
           imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 5" ]
           ports:
-            - containerPort: $80$
-              protocol: $TCP$
-      restartPolicy: Always
-      $END$
+            - containerPort: 9001
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://polar-mysql:3306/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+
+      

@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: $title$
+  name: catalog-service
 spec:
   selector:
-    app: $title$
+    app: catalog-service
   ports:
-    - protocol: $TCP$
-      port: $80$
-      targetPort: $8080$
-  type: NodePort
-  $END$
+    - protocol: TCP
+      port: 80
+      targetPort: 9001
+  type: ClusterIP
+  
