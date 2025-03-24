@@ -34,6 +34,7 @@ services:
       - 9002:9002
     environment:
       - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/order
+      - CATALOG_SERVICE_URL=http://catalog-service:9001
   polar-mysql:
     image: "mysql:latest"
     container_name: "polar-mysql"
@@ -43,3 +44,14 @@ services:
       - MYSQL_ROOT_PASSWORD=1234     
     volumes:
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  polar-rabbitmq:
+    image: "rabbitmq:management"
+    container_name: "polar-rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=1234
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
