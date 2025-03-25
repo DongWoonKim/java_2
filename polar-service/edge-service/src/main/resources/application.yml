@@ -24,15 +24,26 @@ spring:
               args:
                 name: orderCircuitBreaker
                 fallbackUri: forward:/service-fallback
+        - id: auth-service
+          uri: ${ORDER_SERVICE_URL:http://localhost:9004}/auths
+          predicates:
+            - Path=/auths/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: authCircuitBreaker
+                fallbackUri: forward:/service-fallback
 resilience4j:
   circuitbreaker:
     configs:
       default:
-        permitted-number-of-calls-in-half-open-state: 5 # ??? ?????? ? ???? ??? ?
-        failure-rate-threshold: 50 # ???? ??? ???? ??? ?? ??? ???
-        wait-duration-in-open-state: 15000 # ?? ???? ??? ??? ???? ??? ??(???)
+        permitted-number-of-calls-in-half-open-state: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 15000
   timelimiter:
     configs:
-      default: # ?? ?? ??? ?? ?? ??
+      default:
         timeout-duration:
           seconds: 5
+polar:
+  auth-service-url: ${AUTH_SERVICE_URL:http://localhost:9004}
