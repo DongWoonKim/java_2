@@ -18,7 +18,7 @@ $(document).ready(() => {
             success: (response) => {
                 alert(response.message);
                 console.log(response);
-                localStorage.setItem('accessToken', response.token);
+                localStorage.setItem('accessToken', response.accessToken);
                 window.location.href = response.url;
             },
             error: (error) => {
