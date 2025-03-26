@@ -24,9 +24,10 @@ $(document).ready(() => {
             contentType: 'application/json; charset=utf-8', // 전송 데이터의 타입
             dataType: 'json', // 서버에서 받을 데이터의 타입
             success: (response) => {
+                console.log('response : ', response)
                 alert('회원가입이 성공했습니다.\n로그인해주세요.');
-                if (response.successed) {
-                    window.location.href = '/member/login';
+                if (response.success) {
+                    window.location.href = response.url;
                 }
             },
             error: (error) => {
