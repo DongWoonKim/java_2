@@ -1,8 +1,10 @@
 package com.example.spring.webfrontservice.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class LoginClientResponseDTO {
     private boolean loggedIn;
     private String userName;
