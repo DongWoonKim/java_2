@@ -1,0 +1,56 @@
+docker 설치 -> desktop
+./gradlew bootBuildImage
+
+docker version
+docker images
+docker run --rm --name catalog-service -p 8080:8080 catalog-service:0.0.1-SNAPSHOT
+
+kubernetes -> minikube
+windows : 
+https://chocolatey.org/install
+choco install minikube -y
+mac :
+brew install minikube
+
+minikube start --cpus=4 --memory=8192 --driver=docker --profile polar
+minikube start --profile polar --kubernetes-version=v1.32.0 
+minikube start --profile polar --kubernetes-version=v1.31.0 
+minikube start --driver=docker --profile polar
+minikube start --profile polar
+minikube stop
+minikube addons enable ingress --profile polar
+minikube image load catalog-service:latest --profile polar
+minikube image load order-service:latest --profile polar
+minikube image load dispatcher-service:latest --profile polar
+minikube image load edge-service:latest --profile polar
+minikube image load auth-service:latest --profile polar
+minikube image load web-front-service:latest --profile polar
+
+
+kubectl create deployment catalog-service --image=catalog-service:0.0.1-SNAPSHOT
+kubectl get pods
+kubectl expose deployment catalog-service --name=catalog-service --port=8080
+kubectl get services
+kubectl port-forward service/catalog-service 8080(호스트의 포트):8081(컨테이너의 포트)
+kubectl exec -it polar-mysql-b98c669ff-6thfl -- bash
+
+./gradlew bootJar
+java -jar catalog-service.jar
+
+docker network create catalog-network
+docker network ls
+
+docker run -d --name=polar-mysql --net catalog-network -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=catalog -p 3307:3306 mysql:latest
+
+docker run -d --name=polar-mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=catalog -p 3307:3306 mysql:latest
+
+docker build -t catalog-service:latest .
+docker run -d --name catalog-service --net catalog-network -p 9010:9001 catalog-service:0.0.1-SNAPSHOT
+docker run -d --name catalog-service --net catalog-network -p 9010:9001 catalog-service:latest
+docker run -d --name catalog-service -e SPRING_DATASOURCE_URL=jdbc:mysql://polar-mysql:3306/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8 -p 9010:9001 catalog-service:0.0.1-SNAPSHOT
+
+docker network create catalog-network
+docker run -d --name=polar-mysql --net catalog-network -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=catalog -p 3307:3306 mysql:latest
+docker run -d --name catalog-service --net catalog-network -e SPRING_DATASOURCE_URL="jdbc:mysql://polar-mysql:3306/catalog" -p 9010:9001 catalog-service:latest
+
+

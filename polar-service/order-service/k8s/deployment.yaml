@@ -1,32 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-service
+  name: order-service
   labels:
-    app: catalog-service
+    app: order-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: catalog-service
+      app: order-service
   template:
     metadata:
-      name: catalog-service
+      name: order-service
       labels:
-        app: catalog-service
+        app: order-service
     spec:
       containers:
-        - name: catalog-service
-          image: catalog-service
+        - name: order-service
+          image: order-service
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:
                 command: [ "sh", "-c", "sleep 5" ]
           ports:
-            - containerPort: 9001
+            - containerPort: 9002
           env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://polar-mysql:3306/catalog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+            - name: SPRING_RABBITMQ_HOST
+              value: polar-rabbitmq
+            - name: SPRING_R2DBC_URL
+              value: r2dbc:mysql://polar-mysql:3306/order
+            - name: CATALOG_SERVICE_URL
+              value: http://catalog-service:80
 
       

@@ -23,7 +23,7 @@ spring:
             producer:
               transacted: true
   rabbitmq:
-    host: localhost
+    host: ${SPRING_RABBITMQ_HOST:localhost}
     port: 5672
     username: user
     password: 1234

@@ -35,6 +35,17 @@ services:
     environment:
       - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/order
       - CATALOG_SERVICE_URL=http://catalog-service:9001
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq
+  dispatcher-service:
+    build:
+      context: C:\Users\cheoho-hi\Desktop\java_2\polar-service\dispatcher-service
+      dockerfile: Dockerfile    
+    image: "dispatcher-service"
+    container_name: "dispatcher-service"
+    ports:
+      - 9003:9003
+    environment:
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq      
   polar-mysql:
     image: "mysql:latest"
     container_name: "polar-mysql"
@@ -53,5 +64,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=1234
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq
     volumes:
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
