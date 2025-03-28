@@ -6,6 +6,7 @@ import com.example.spring.authservice.dto.UserLoginResponseDTO;
 import com.example.spring.authservice.mapper.UserMapper;
 import com.example.spring.authservice.model.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -23,7 +25,7 @@ public class UserService {
     private final TokenProviderService tokenProviderService;
 
     public UserLoginResponseDTO login(String username, String password) {
-
+        log.info("user name : {}", username);
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
 
@@ -31,7 +33,8 @@ public class UserService {
 
         String accessToken = tokenProviderService.generateToken(user, Duration.ofHours(2));
         String refreshToken = tokenProviderService.generateToken(user, Duration.ofDays(2));
-
+        log.info("accessToken : {}", accessToken);
+        log.info("refreshToken : {}", refreshToken);
         return UserLoginResponseDTO.builder()
                 .loggedIn(true)
                 .accessToken(accessToken)
