@@ -29,3 +29,5 @@ spec:
               value: http://catalog-service:80
             - name: ORDER_SERVICE_URL
               value: http://order-service:80
+            - name: AUTH_SERVICE_URL
+              value: http://auth-service:80

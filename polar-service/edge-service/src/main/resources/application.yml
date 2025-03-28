@@ -11,6 +11,7 @@ spring:
           predicates:
             - Path=/books/**
           filters:
+            - name: PreGatewayFilter
             - name: CircuitBreaker
               args:
                 name: catalogCircuitBreaker
@@ -20,12 +21,13 @@ spring:
           predicates:
             - Path=/orders/**
           filters:
+            - name: PreGatewayFilter
             - name: CircuitBreaker
               args:
                 name: orderCircuitBreaker
                 fallbackUri: forward:/service-fallback
         - id: auth-service
-          uri: ${ORDER_SERVICE_URL:http://localhost:9004}/auths
+          uri: ${AUTH_SERVICE_URL:http://localhost:9004}/auths
           predicates:
             - Path=/auths/**
           filters:
