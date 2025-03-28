@@ -11,6 +11,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: edge-service
+                name: web-front-service
                 port:
                   number: 80
