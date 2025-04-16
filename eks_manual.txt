@@ -1,0 +1,94 @@
+0. 설치
+// windows Chocolatey 패키지 관리자를 사용하는 방법
+// windows -> powershell(관리자권한)
+choco install terraform
+
+// mac -> terminal
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+
+terraform --version
+
+HashiCorp Terraform -> extension
+1. terraform 
+- 프로젝트 생성 후 파워쉘로 해당 디렉토리 이동
+- main.tf 생성
+- terraform init
+- terraform fmt -recursive 
+- terraform apply -> yes
+- terraform destroy
+
+// power shell을 새로 실행
+aws cli 설치
+aws --version
+
+// AWS 자격 증명 설정
+aws configure
+
+- AWS Access Key ID
+- AWS Secret Access Key
+- Default region name (예: ap-northeast-2)
+- Default output format (json/yaml/text)
+
+// 설정 확인
+aws configure list
+
+3. kubernetes
+// EKS 클러스터에 연결하기 위해서는 kubeconfig를 업데이트
+aws eks update-kubeconfig --name <your-cluster-name> --region <your-region>
+aws eks update-kubeconfig --name polar --region ap-northeast-2
+
+// 현재 사용 가능한 모든 컨텍스트를 보려면
+- kubectl config get-contexts
+
+// minikube로 다시 전환
+kubectl config use-context minikube
+
+// 현재 어떤 컨텍스트를 사용하고 있는지 확인
+kubectl config current-context
+
+// AWS 계정 ID를 다음 명령어로 확인
+- aws sts get-caller-identity --query Account --output text
+
+4. ECR
+// docker image build
+docker build -t edge-service:latest .
+
+// ECR 레포지토리 생성
+aws ecr create-repository --repository-name edge-service --region ap-northeast-2
+aws ecr create-repository --repository-name auth-service --region ap-northeast-2 
+
+// ECR 로그인
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin [방금_확인한_계정ID].dkr.ecr.ap-northeast-2.amazonaws.com 
+
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 730335665695.dkr.ecr.ap-northeast-2.amazonaws.com
+
+// 이미지에 ECR 태그 추가
+docker tag edge-service:latest 730335665695.dkr.ecr.ap-northeast-2.amazonaws.com/edge-service:latest
+
+// ECR로 푸시
+docker push 730335665695.dkr.ecr.ap-northeast-2.amazonaws.com/edge-service:latest
+
+// bastion EC2 생성
+- public subent으로
+- public ip 활성
+- 키페어 등록
+
+// ssh 접속
+-> PowerShell을 관리자 권한으로 실행
+-> scp -i polar-bastion-edu.pem polar-bastion-edu.pem ec2-user@3.35.19.47:~/.ssh/ (로컬 pc)
+
+=== bastion host
+-> chmod 400 ~/.ssh/polar-bastion-edu.pem 
+=== Private 인스턴스로 SSH 접속
+-> ssh -i ~/.ssh/polar-bastion-edu.pem ubuntu@10.0.3.130
+=== MySQL
+-> sudo mysql
+-> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
+CREATE USER 'root'@'%' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+-> SELECT User, Host, plugin FROM mysql.user;
+-> sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+-> bind-address = 0.0.0.0
+-> sudo systemctl restart mysql
